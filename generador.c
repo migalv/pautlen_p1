@@ -261,3 +261,20 @@ void cambiar_signo(FILE* fpasm, int es_referencia){
 	return;
 }
 
+void leer(FILE* pasm, char* nombre, int tipo){
+	
+	fprintf(fpasm, "\tpush dword _%s\n", nombre);
+	
+	if(tipo == ENTERO)
+		fprintf(fpasm, "\tcall scan_int\n");
+	else
+		fprintf(fpasm, "\tcall scan_boolean\n");
+	
+	fprintf(fpasm, "\tadd esp, 4\n");
+}
+
+
+void escribir(FILE* fpasm, int es_referencia, int tipo){
+
+	
+}
