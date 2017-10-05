@@ -271,10 +271,26 @@ void leer(FILE* pasm, char* nombre, int tipo){
 		fprintf(fpasm, "\tcall scan_boolean\n");
 	
 	fprintf(fpasm, "\tadd esp, 4\n");
+	return;
 }
 
 
 void escribir(FILE* fpasm, int es_referencia, int tipo){
 
+	if(es_referencia == 1){ /* Lo que hay en la pila es la referencia a una variable*/
+		fprintf(fpasm, "\tpop dword eax\n");
+		fprintf(fpasm, "\tmov ebx, [eax]\n");
+		fprintf(fpasm, "\tpush dword ebx\n");
+	}
+	/* Si no es referencia el valor esta directamente en la pila, asi que simplemente
+	   debemos llamar a la funcion que nos interese*/
+	if(tipo == ENTERO){
+		fprintf(fpasm, "\tcall print_int\n");
+	}else{
+		fprintf(fpasm, "\tcall print_boolean\n");
+	}
 	
+	/* Finalmente solo debemos actualizar el puntero de la pila*/
+	fprintf(fpasm, "\tadd esp, 4\n");
+	return;
 }
