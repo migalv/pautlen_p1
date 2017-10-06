@@ -1,0 +1,9 @@
+main
+{
+    boolean b1;
+
+    scanf b1;
+       printf !b1;
+    printf !!b1;
+
+}
