@@ -1,0 +1,14 @@
+#!/bin/bash
+ARGC=$#
+if [ ${ARGC} -ne "2" ];
+then
+	echo "./compile.sh <ASM File> <Binary Name>"
+	exit 1
+fi
+ASM_FILE=$1
+BIN_FILE=$2
+NAME="${ASM_FILE%.*}"
+NAME+=".o"
+nasm -g -o ${NAME} -f elf32 ${ASM_FILE}
+gcc -m32 -o ${BIN_FILE} ${NAME} lib/alfalib.o -lgcc_s
+rm ${NAME}
